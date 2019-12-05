@@ -8,7 +8,7 @@ include 'header.php';
 <!--section starts, change dynamically depending on page--->
 <section>
   <?php 
-  ini_set('display_errors', 1); ini_set('display_startup_errors', 1); error_reporting(E_ALL);
+  // ini_set('display_errors', 1); ini_set('display_startup_errors', 1); error_reporting(E_ALL);
   try {
     $connStr = "mysql:host=localhost;dbname=manga";
     $user = "gin";

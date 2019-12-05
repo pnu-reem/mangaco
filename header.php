@@ -17,7 +17,7 @@ include_once "control/session.php";
         echo $extra;
       }
     ?>
-    }
+    
 
   </head>
   <body>
