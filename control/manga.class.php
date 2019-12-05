@@ -1,12 +1,13 @@
 <?php
 ini_set('display_errors', 1); ini_set('display_startup_errors', 1); error_reporting(E_ALL);
 class Manga {
-  public static $count = 0;
   private $id;
   private $name;
   private $author;
   private $description;
   private $year;
+  private $coverImage;
+  private $isFavourite;
   private $genres;
   private $volumes;
 
@@ -14,15 +15,15 @@ class Manga {
   const HIGHEST_ALLOWED_DATE = 2019;
 
 
-  function __construct($name, $author, $desc, $year) {
+  function __construct($id, $name, $author, $desc, $year, $coverImage) {
     $this->genres = array();
     $this->volumes = array();
-    $this->setId();
+    $this->setId($id);
     $this->setName($name);
     $this->setAuthor($author);
     $this->setDescription($desc);
     $this->setYear($year);
-    self::$count++;
+    $this->setCoverImage($coverImage);
   }
 
   public function getId() {
@@ -40,17 +41,21 @@ class Manga {
   public function getYear() {
     return $this->year;
   }
+  public function getIsFavourite() {
+    return $this->isFavourite;
+  }
+  public function getCoverImage() {
+    return $this->coverImage;
+  }
+  
   public function getGenres() {
     return $this->genres;
   }
 
-  public function getVolumes() {
-    return $this->volumes;
-  }
 
 
-  public function setId() {
-    $this->id = self::$count;
+  public function setId($id) {
+    $this->id = $id;
   }
   public function setName($name) {
     $this->name = $name;
@@ -69,6 +74,12 @@ class Manga {
       $this->year = date('Y');
     }
   }
+  public function setIsFavourite($fav) {
+    $this->isFavourite = $fav;
+  }
+  public function setCoverImage($coverImage) {
+    $this->coverImage = $coverImage;
+  }
 
   public function addGenre($genre) {
       $this->genres[$genre->getId()] = $genre;
@@ -77,16 +88,6 @@ class Manga {
   public function deleteGenre($id) {
     unset($this->genres[$id]);
   }
-
-  public function addVolume($volume) {
-    $this->volumes[$volume->getId()] = $volume;
-}
-
-public function deleteVolume($id) {
-  unset($this->volumes[$id]);
-}
-
-
 
   public function __toString() {
     $string = '';
@@ -101,13 +102,7 @@ public function deleteVolume($id) {
     foreach($this->genres as $genre) {
       $string .=  $genre->getName() .",";
     }
-    $string .= "</p><p>volumes: ";
-    foreach($this->volumes as $volume) {
-      $string .=  $volume;
-    }
     $string .= "</p>";
-
-
     return $string; 
   }
 }
